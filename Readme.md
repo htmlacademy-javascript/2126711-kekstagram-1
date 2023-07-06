@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Евгений Пимкин](https://up.htmlacademy.ru/javascript-individual/1/user/2126711).
-* Наставник: `Неизвестно`.
+- Студент: [Евгений Пимкин](https://up.htmlacademy.ru/javascript-individual/1/user/2126711).
+- Наставник: [Сергей Остаповец](https://htmlacademy.ru/profile/seraphim).
 
 ---
 
