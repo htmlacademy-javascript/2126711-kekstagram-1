@@ -1,47 +1,69 @@
+"use strict";
 
 // Номер 1
-function isPalindrom() {
-  for () {
 
+const isPalindrom = (str) => {
+  let string = str.replaceAll(" ").toLowerCase();
+  string.split('').reverse().join('');
+
+  if (str === string) {
+    return true;
   }
+
+  return false;
 }
 
-isPalindrom('Довод');
+isPalindrom('топот');
+isPalindrom('ДовОд');
+isPalindrom('Кекс');
 
 // Номер 2
 
-function getNumber(str, base) {
-  let parsed = parseInt(str, 10);
+const getNumber = (str) => {
+  let parsed = parseFloat(str.replace(/[^\d]/g, ''));
+
   if (isNaN(parsed)) {
     return NaN;
   }
-  return parsed;
+
+  return Math.abs(parsed);
 }
 
-console.log(getNumber('22 бобра'));
-
+getNumber('2023 год');
+getNumber('ECMAScript 2022');
+getNumber('1 кефир, 0.5 батона');
+getNumber('агент 007');
+getNumber('а я томат');
+getNumber(2023);
+getNumber(-1);
+getNumber(1.5);
 
 // Номер 3
 
-function getAddString() {
+const getAddString = (startSymbols, amountSymbols, additionalSymbols) => {
+  for (let i = startSymbols; i <= amountSymbols;  i += additionalSymbols) {
+
+  }
 }
 
+getAddString('1', 2, '0');
+getAddString('1', 4, '0');
+getAddString('q', 4, 'werty');
 getAddString('q', 4, 'we');
-
+getAddString('qwerty', 4, '0');
 
 // Номер 4
 
-function getStringLength(str) {
-  let string = str.length;
+const getStringLength = (str, maxLength) => {
+  let length = str.length;
 
-  if (string > 15) {
-    alert('Превышено количество символов!')
+  if (length > maxLength) {
     return false;
   }
 
-  return string;
+  return true;
 }
 
-console.log(getStringLength('22 бобра'));
-console.log(getStringLength('22'));
-console.log(getStringLength('138 общипанных куриц'));
+console.log(getStringLength('22 бобра', 20));
+console.log(getStringLength('22', 18));
+console.log(getStringLength('138 общипанных куриц', 10));
