@@ -65,7 +65,7 @@ const createDescription = () => ({
 });
 
 const createComment = () => ({
-  id: getRandom(1, 10000),
+  id: getRandom(1, 9999),
   avatar: "img/avatar-" + getRandom(1, 6) + ".svg",
   message: getRandomArrayElement(COMMENTS),
   name: getRandomArrayElement(NAMES),
