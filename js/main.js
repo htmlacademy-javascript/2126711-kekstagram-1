@@ -1,6 +1,9 @@
 "use strict";
 
-const DESCRIPTION = [
+const MIN_LIKES_VALUE = 15;
+const MAX_LIKES_VALUE = 200;
+
+const DESCRIPTIONS = [
   "Ура! Отпуск!",
   "Был рад повидаться!",
   "#классныевыходные",
@@ -28,7 +31,7 @@ const NAMES = [
   "Басурманин777",
 ];
 
-const MESSAGE_TEXT = [
+const MESSAGE_TEXTS = [
   "Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.",
   "В целом всё неплохо. Но не всё.",
   "Всё отлично!",
@@ -47,20 +50,25 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
+const createMessage = () => {
+  Array.from({ length: getRandomInteger(1, 2) }, () =>
+    getRandomArrayElement(MESSAGE_TEXTS)).join(" ");
+}
+
 const createComment = () => ({
   id: getRandomInteger(1, 9999),
   avatar: "img/avatar-" + getRandomInteger(1, 6) + ".svg",
-  message: [MESSAGE_TEXT[getRandomInteger(1, MESSAGE_TEXT.length)], MESSAGE_TEXT[getRandomInteger(1, MESSAGE_TEXT.length)]].join(" "),
+  message: createMessage(),
   name: getRandomArrayElement(NAMES),
 });
 
-const COMMENTS = Array.from({ length: getRandomInteger(1, 15) }, createComment);
+const COMMENTS = Array.from({ length: getRandomInteger(0, 15) }, createComment);
 
 const createDescription = (_, index) => ({
   id: index + 1,
   url: "photos/" + (index + 1) + ".jpg",
-  description: getRandomArrayElement(DESCRIPTION),
-  likes: getRandomInteger(15, 200),
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomInteger(MIN_LIKES_VALUE, MAX_LIKES_VALUE),
   comments: COMMENTS,
 });
 
