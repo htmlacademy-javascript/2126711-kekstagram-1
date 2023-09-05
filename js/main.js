@@ -63,14 +63,14 @@ const getMultipleMessage = (count = 1, arr = []) => {
   uniqueArray.add(newText);
 
   if (uniqueArray.size === (newCount ? newCount : count)) {
-    return Array.from(set).join(' ');
+    return Array.from(uniqueArray).join(' ');
   } else {
-    return getMultipleMessage(newCount ? newCount : count, Array.from(set));
+    return getMultipleMessage(newCount ? newCount : count, Array.from(uniqueArray));
   }
 }
 
 const createMessage = () => {
-  const count = getRandomInteger(1, 2);
+  const count = getRandomInteger(1, 3);
 
   return getMultipleMessage(count);
 }
