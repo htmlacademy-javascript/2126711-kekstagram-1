@@ -50,9 +50,33 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
+const getMultipleMessage = (count, arr = []) => {
+  let textArray = arr;
+  let text = getRandomArrayElement(MESSAGE_TEXTS);
+
+  if (textArray.length != count) {
+    textArray.push(text);
+  }
+
+  let uniqueArray = Array.from(new Set(textArray));
+  console.log(uniqueArray);
+
+  // TODO:
+  // 1 - юзер не может перебирать больше чем есть всего фраз (НЕ ДОБАВЛЯТЬ БОЛЬШЕ ЧЕМ НУЖНО)
+  // 2 - упростить логику пуша слова (Удалять уже использованные предложения)
+  // 3 - попробовать использовать new Set()
+  if (uniqueArray.length === count) {
+    return uniqueArray.join(' ')
+  } else {
+    return getMultipleMessage(count, textArray)
+  }
+
+}
+
 const createMessage = () => {
-  Array.from({ length: getRandomInteger(1, 2) }, () =>
-    getRandomArrayElement(MESSAGE_TEXTS)).join(" ");
+  const count = getRandomInteger(1, 2);
+
+  return getMultipleMessage(count);
 }
 
 const createComment = () => ({
@@ -62,14 +86,12 @@ const createComment = () => ({
   name: getRandomArrayElement(NAMES),
 });
 
-const COMMENTS = Array.from({ length: getRandomInteger(0, 15) }, createComment);
-
 const createDescription = (_, index) => ({
   id: index + 1,
   url: "photos/" + (index + 1) + ".jpg",
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(MIN_LIKES_VALUE, MAX_LIKES_VALUE),
-  comments: COMMENTS,
+  comments: Array.from({ length: getRandomInteger(0, 15) }, createComment),
 });
 
 const descriptionPhoto = Array.from({ length: 25 }, createDescription);
