@@ -50,31 +50,27 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-const getMultipleMessage = (count, arr = []) => {
-  let textArray = arr;
-  let text = getRandomArrayElement(MESSAGE_TEXTS);
+const getMultipleMessage = (count = 1, arr = []) => {
+  let maxCount = MESSAGE_TEXTS.length;
+  let newCount;
+  const uniqueArray = new Set(arr);
 
-  if (textArray.length != count) {
-    textArray.push(text);
+  if (count > maxCount) {
+    newCount = maxCount;
   }
 
-  let uniqueArray = Array.from(new Set(textArray));
-  console.log(uniqueArray);
+  const newText = getRandomArrayElement(MESSAGE_TEXTS);
+  uniqueArray.add(newText);
 
-  // TODO:
-  // 1 - юзер не может перебирать больше чем есть всего фраз (НЕ ДОБАВЛЯТЬ БОЛЬШЕ ЧЕМ НУЖНО)
-  // 2 - упростить логику пуша слова (Удалять уже использованные предложения)
-  // 3 - попробовать использовать new Set()
-  if (uniqueArray.length === count) {
-    return uniqueArray.join(' ')
+  if (uniqueArray.size === (newCount ? newCount : count)) {
+    return Array.from(uniqueArray).join(' ');
   } else {
-    return getMultipleMessage(count, textArray)
+    return getMultipleMessage(newCount ? newCount : count, Array.from(uniqueArray));
   }
-
 }
 
 const createMessage = () => {
-  const count = getRandomInteger(1, 2);
+  const count = getRandomInteger(1, 3);
 
   return getMultipleMessage(count);
 }
