@@ -52,25 +52,25 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 
 const getMultipleMessage = (count, arr = []) => {
   let textArray = arr;
-
   let text = getRandomArrayElement(MESSAGE_TEXTS);
-  console.log(textArray.includes(text));
-  if (!textArray.includes(text)) {
+
+  if (textArray.length != count) {
     textArray.push(text);
   }
 
-  if (textArray.length > MESSAGE_TEXTS.length) {
-    return 'ой! много';
-  }
+  let uniqueArray = Array.from(new Set(textArray));
+  console.log(uniqueArray);
+
   // TODO:
-  // 1 - юзер не может перебирать больше чем есть всего фраз
-  // 2 - упростить логику пуша слова
+  // 1 - юзер не может перебирать больше чем есть всего фраз (НЕ ДОБАВЛЯТЬ БОЛЬШЕ ЧЕМ НУЖНО)
+  // 2 - упростить логику пуша слова (Удалять уже использованные предложения)
   // 3 - попробовать использовать new Set()
-  if (textArray.length === count) {
-    return textArray.join(' // ')
+  if (uniqueArray.length === count) {
+    return uniqueArray.join(' ')
   } else {
     return getMultipleMessage(count, textArray)
   }
+
 }
 
 const createMessage = () => {
