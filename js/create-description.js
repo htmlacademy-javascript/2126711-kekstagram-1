@@ -82,4 +82,6 @@ const createDescription = (_, index) => ({
 
 const createDescriptionPhoto = Array.from({ length: 25 }, createDescription);
 
+export { createDescriptionPhoto };
+
 console.log(createDescriptionPhoto);
