@@ -1,3 +1,2 @@
-import "./create-description.js";
-import "./util.js";
-import "./thumbnails.js";
+import './util.js';
+import './thumbnails.js';
