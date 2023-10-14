@@ -5,28 +5,37 @@ const thumbnailsTemplate = document.querySelector('#picture').content;
 
 const thumbnailsData = createDescriptionPhoto();
 
-const similarListFragment = document.createDocumentFragment();
+const getThumbnail = ({ url, likes, comments }) => {
+  const thumbnailElement = thumbnailsTemplate.cloneNode(true);
+  const imageLink = thumbnailElement.querySelector('a.picture');
+  imageLink.href = url;
 
-thumbnailsData.forEach(({ url, likes, comments }) => {
-  const displayGeneratedData = () => {
-    const thumbnailElement = thumbnailsTemplate.cloneNode(true);
-    const imageLink = thumbnailElement.querySelector('a.picture');
-    imageLink.href = url;
+  const image = thumbnailElement.querySelector('img.picture__img');
+  image.src = url;
 
-    const image = thumbnailElement.querySelector('img.picture__img');
-    image.src = url;
+  const commentsContainer = thumbnailElement.querySelector('.picture__comments');
+  commentsContainer.textContent = comments.length;
 
-    const commentsContainer = thumbnailElement.querySelector('.picture__comments');
-    commentsContainer.textContent = comments.length;
+  const likesContainer = thumbnailElement.querySelector('.picture__likes');
+  likesContainer.textContent = likes;
 
-    const likesContainer = thumbnailElement.querySelector('.picture__likes');
-    likesContainer.textContent = likes;
+  const thumbnail = document.createDocumentFragment();
+  thumbnail.append(thumbnailElement);
 
-    const thumbnail = document.createDocumentFragment();
-    thumbnail.append(thumbnailElement);
-  };
+  return thumbnail;
+};
 
-  return displayGeneratedData;
-});
+const drawThumbnails = (pictData) => {
+  const picturesList = document.createDocumentFragment();
 
-thumbnailsList.appendChild(similarListFragment);
+  for (const pictDataElem of pictData) {
+
+    const thumbnail = getThumbnail(pictDataElem);
+
+    picturesList.append(thumbnail);
+  }
+
+  thumbnailsList.append(picturesList);
+};
+
+export { drawThumbnails };
