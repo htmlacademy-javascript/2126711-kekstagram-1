@@ -1,3 +1,4 @@
 import './util.js';
-import './thumbnails.js';
+import './gallery.js';
+import './full-screen-image.js';
 

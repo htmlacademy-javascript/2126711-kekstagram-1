@@ -32,3 +32,4 @@ const drawThumbnails = (pictData) => {
 
 drawThumbnails(thumbnailsData);
 
+export { drawThumbnails };
