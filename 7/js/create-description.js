@@ -1,4 +1,4 @@
-import { getRandomInteger, getRandomArrayElement } from './util.js';
+import { getRandomInteger, getRandomArrayElement } from './utils.js';
 
 const MIN_LIKES_VALUE = 15;
 const MAX_LIKES_VALUE = 200;
