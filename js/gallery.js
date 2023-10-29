@@ -16,7 +16,7 @@ const COMMENTS_PER_PAGE = 5;
 
 let renderComments;
 
-const changeLoadCommentsBtnState = (buttonShowed = true) => {
+const loadCommentsButton = (buttonShowed = true) => {
   if (buttonShowed) {
     loadMoreButton.classList.remove('hidden');
 
@@ -37,13 +37,13 @@ const initComments = (comments) => {
     renderComments = getCommentsRenderer(comments, commentsContainer, COMMENTS_PER_PAGE);
 
     renderComments();
-    changeLoadCommentsBtnState();
+    loadCommentsButton();
 
     loadMoreButton.addEventListener('click', commentsLoadHandler);
   }
 
   if (isAllCommentsLoaded(comments.length)) {
-    changeLoadCommentsBtnState(false);
+    loadCommentsButton(false);
   }
 
   updateCommentsCounter();
@@ -71,7 +71,8 @@ const renderGallery = () => {
   photosContainer.addEventListener('click', thumbnailClickHandler);
 };
 
-initComments();
 removeCommentsLoadHandler();
 renderGallery();
+initComments(comments);
 
+export { removeCommentsLoadHandler };

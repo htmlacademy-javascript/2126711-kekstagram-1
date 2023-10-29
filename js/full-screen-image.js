@@ -1,4 +1,5 @@
-import {isEscapeKey} from './utils.js';
+import { isEscapeKey } from './utils.js';
+import {removeCommentsLoadHandler} from './gallery.js';
 
 const fullPhotoContainer = document.querySelector('.big-picture');
 const closeFullPhotoButton = document.querySelector('.big-picture__cancel');
@@ -18,6 +19,7 @@ const closeFullPhoto = () => {
   document.removeEventListener('keydown', documentKeyDownHandler);
   closeFullPhotoButton.removeEventListener('click', fullPhotoCloseHandler);
 
+  removeCommentsLoadHandler();
 };
 
 function documentKeyDownHandler(evt) {
