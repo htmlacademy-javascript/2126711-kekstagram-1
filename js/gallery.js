@@ -33,6 +33,11 @@ const removeCommentsLoadHandler = () => loadMoreButton.removeEventListener('clic
 const initComments = (comments) => {
   commentsContainer.innerHTML = '';
 
+  if (comments.length === undefined) {
+    console.log('Пипец');
+  };
+
+
   if (comments.length > 0) {
     renderComments = getCommentsRenderer(comments, commentsContainer, COMMENTS_PER_PAGE);
 
@@ -71,8 +76,7 @@ const renderGallery = () => {
   photosContainer.addEventListener('click', thumbnailClickHandler);
 };
 
-removeCommentsLoadHandler();
 renderGallery();
-initComments(comments);
-
+initComments();
+removeCommentsLoadHandler();
 export { removeCommentsLoadHandler };
