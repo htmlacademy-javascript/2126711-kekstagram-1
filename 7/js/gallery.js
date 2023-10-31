@@ -16,7 +16,7 @@ const COMMENTS_PER_PAGE = 5;
 
 let renderComments;
 
-const changeLoadCommentsBtnState = (buttonShowed = true) => {
+const loadCommentsButton = (buttonShowed = true) => {
   if (buttonShowed) {
     loadMoreButton.classList.remove('hidden');
 
@@ -33,17 +33,22 @@ const removeCommentsLoadHandler = () => loadMoreButton.removeEventListener('clic
 const initComments = (comments) => {
   commentsContainer.innerHTML = '';
 
+  if (comments.length === undefined) {
+    console.log('Пипец');
+  };
+
+
   if (comments.length > 0) {
     renderComments = getCommentsRenderer(comments, commentsContainer, COMMENTS_PER_PAGE);
 
     renderComments();
-    changeLoadCommentsBtnState();
+    loadCommentsButton();
 
     loadMoreButton.addEventListener('click', commentsLoadHandler);
   }
 
   if (isAllCommentsLoaded(comments.length)) {
-    changeLoadCommentsBtnState(false);
+    loadCommentsButton(false);
   }
 
   updateCommentsCounter();
@@ -71,7 +76,7 @@ const renderGallery = () => {
   photosContainer.addEventListener('click', thumbnailClickHandler);
 };
 
+renderGallery();
 initComments();
 removeCommentsLoadHandler();
-renderGallery();
-
+export { removeCommentsLoadHandler };

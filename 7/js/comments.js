@@ -1,10 +1,13 @@
 const commentsTemplate = document.querySelector('#comment');
-const showedComments = document.querySelector('.social__comments').children;
+const showedComments = document.querySelector('.social__comments');
 const showedCommentsCounter = document.querySelector('.showed-comments-count');
 const loadMoreCommentsButton = document.querySelector('.social__comments-loader');
-const userAvatar = { WIDTH: 35, HEIGHT: 35 };
+const userAvatar = {
+  WIDTH: 35,
+  HEIGHT: 35
+};
 
-const getShowedCommentsCount = () => showedComments.length;
+const getShowedCommentsCount = showedComments.length;
 
 const updateCommentsCounter = () => {
   showedCommentsCounter.textContent = getShowedCommentsCount();
@@ -30,7 +33,7 @@ const getComment = ({avatar, name, message}) => {
   return comment;
 };
 
-const getCommentsRenderer = (comments, container, commentsCount = comments.length, startIndex = 0) => () => {
+const getCommentsRenderer = (comments, container, commentsCount, startIndex = 0) => {
   if (comments.length <= 0) {
     return;
   }
