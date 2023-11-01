@@ -37,7 +37,6 @@ const initComments = (comments) => {
     console.log('Пипец');
   };
 
-
   if (comments.length > 0) {
     renderComments = getCommentsRenderer(comments, commentsContainer, COMMENTS_PER_PAGE);
 
