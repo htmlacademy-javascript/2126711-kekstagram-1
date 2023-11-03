@@ -1,56 +1,71 @@
 import { drawThumbnails } from './thumbnails.js';
 import { createDescriptionPhoto } from './create-description.js';
 import { openFullPhoto } from './full-screen-image.js';
-import { getCommentsRenderer, updateCommentsCounter, isAllCommentsLoaded } from './comments.js';
 
 const thumbnailsData = createDescriptionPhoto();
 const photosContainer = document.querySelector('.pictures');
 const fullPhotoContainer = document.querySelector('.big-picture__img > img');
 const likesCountContainer = document.querySelector('.likes-count');
-const commentsCounter = document.querySelector('.comments-count');
 const commentsContainer = document.querySelector('.social__comments');
 const fullPhotoDescription = document.querySelector('.social__caption');
-const loadMoreButton = document.querySelector('.social__comments-loader');
+const commentsLoaderBtn = document.querySelector('.comments-loader');
+const commentsCounter = document.querySelector('.comments-count');
+const commentsLoadCounter = document.querySelector('.comments-load-count');
 
 const COMMENTS_PER_PAGE = 5;
 
-let renderComments;
+let currentCommentsViewCount = 5;
 
-const loadCommentsButton = (buttonShowed = true) => {
-  if (buttonShowed) {
-    loadMoreButton.classList.remove('hidden');
+const showMoreComments = () => {
+  const hiddenComments = Array.from(document.querySelectorAll('.social__comment.hidden'));
+  const firstFiveEls = hiddenComments.slice(0, COMMENTS_PER_PAGE);
+  firstFiveEls.forEach((hiddenComment) => {
+    hiddenComment.classList.remove('hidden');
+  });
 
-    return;
-  }
+  currentCommentsViewCount += firstFiveEls.length;
+  commentsLoadCounter.textContent = currentCommentsViewCount;
 
-  loadMoreButton.classList.add('hidden');
+  if (commentsLoadCounter.textContent >= commentsCounter.textContent) {
+    commentsLoaderBtn.classList.add('hidden');
+  };
+
+  console.log(currentCommentsViewCount);
+  console.log(commentsLoadCounter.textContent);
+  // работа с кнопкой
+  // отображение текущшего кол-ва
+  // сброс формы если юзер закрыл окно
 };
 
-const commentsLoadHandler = () => renderComments();
+const renderComment = (comment, index) => {
+  const commentEl = document.createElement('li');
+  commentEl.classList.add('social__comment');
+  if (index + 1 > currentCommentsViewCount) {
+    commentEl.classList.add('hidden');
+  }
 
-const removeCommentsLoadHandler = () => loadMoreButton.removeEventListener('click', commentsLoadHandler);
+  const imgEl = document.createElement('img');
+  imgEl.classList.add('social__picture');
+  imgEl.setAttribute('src', comment.avatar);
+  imgEl.setAttribute('alt', comment.name);
+  imgEl.setAttribute('width', 35);
+  imgEl.setAttribute('height', 35);
+
+  const textEl = document.createElement('p');
+  textEl.classList.add('social__text');
+  textEl.textContent = comment.message;
+
+  commentEl.append(imgEl, textEl);
+
+  return commentEl;
+};
 
 const initComments = (comments) => {
   commentsContainer.innerHTML = '';
 
-  if (comments.length === undefined) {
-    console.log('Пипец');
-  };
-
-  if (comments.length > 0) {
-    renderComments = getCommentsRenderer(comments, commentsContainer, COMMENTS_PER_PAGE);
-
-    renderComments();
-    loadCommentsButton();
-
-    loadMoreButton.addEventListener('click', commentsLoadHandler);
-  }
-
-  if (isAllCommentsLoaded(comments.length)) {
-    loadCommentsButton(false);
-  }
-
-  updateCommentsCounter();
+  comments.forEach((el, index) => {
+    commentsContainer.append(renderComment(el, index));
+  });
 };
 
 const setFullPhotoData = (currentImg) => {
@@ -61,6 +76,7 @@ const setFullPhotoData = (currentImg) => {
   commentsCounter.textContent = comments.length;
   fullPhotoDescription.textContent = description;
 
+  initComments(comments);
   openFullPhoto();
 };
 
@@ -73,9 +89,13 @@ const thumbnailClickHandler = (evt) => {
 const renderGallery = () => {
   drawThumbnails(thumbnailsData);
   photosContainer.addEventListener('click', thumbnailClickHandler);
+  commentsLoaderBtn.addEventListener('click', showMoreComments);
 };
 
+const commentsLoadHandler = () => renderGallery();
+
+const removeCommentsLoadHandler = () => commentsLoaderBtn.removeEventListener('click', commentsLoadHandler);
+
 renderGallery();
-initComments();
-removeCommentsLoadHandler();
+
 export { removeCommentsLoadHandler };
