@@ -43,7 +43,7 @@ const showMoreComments = () => {
   currentCommentsViewCount += firstFiveEls.length;
   commentsLoadCounter.textContent = currentCommentsViewCount;
 
-  if (commentsLoadCounter.textContent === commentsCounter.textContent) {
+  if (commentsLoadCounter.textContent >= commentsCounter.textContent) {
     commentsLoaderBtn.classList.add('hidden');
   }
 
@@ -109,10 +109,9 @@ const renderGallery = () => {
   commentsLoaderBtn.addEventListener('click', showMoreComments);
 };
 
-const commentsLoadHandler = () => renderGallery();
-
-const removeCommentsLoadHandler = () => commentsLoaderBtn.removeEventListener('click', commentsLoadHandler);
-
 renderGallery();
+
+const commentsLoadHandler = () => renderGallery();
+const removeCommentsLoadHandler = () => commentsLoaderBtn.removeEventListener('click', commentsLoadHandler);
 
 export { removeCommentsLoadHandler };
