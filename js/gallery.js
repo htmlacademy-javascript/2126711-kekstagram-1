@@ -1,6 +1,6 @@
 import { drawThumbnails } from './thumbnails.js';
 import { createDescriptionPhoto } from './create-description.js';
-import { openFullPhoto, closeFullPhoto } from './full-screen-image.js';
+import { openFullPhoto } from './full-screen-image.js';
 
 const thumbnailsData = createDescriptionPhoto();
 const photosContainer = document.querySelector('.pictures');
@@ -16,7 +16,7 @@ const COMMENTS_PER_PAGE = 5;
 let currentCommentsViewCount = 5;
 
 const isAllLoaded = () => {
-  if (+commentsCounter.textContent < currentCommentsViewCount) {
+  if (+commentsCounter.textContent <= currentCommentsViewCount) {
     commentsLoadCounter.textContent = commentsCounter.textContent;
     commentsLoaderBtn.classList.add('hidden');
   }
