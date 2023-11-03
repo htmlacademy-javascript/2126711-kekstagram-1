@@ -13,8 +13,25 @@ const commentsCounter = document.querySelector('.comments-count');
 const commentsLoadCounter = document.querySelector('.comments-load-count');
 
 const COMMENTS_PER_PAGE = 5;
-
 let currentCommentsViewCount = 5;
+
+// const isAllLoaded = () => {
+//   if (+commentsCounter.textContent === 0) {
+//     currentCommentsViewCount = 0;
+//     commentsLoadCounter.textContent = currentCommentsViewCount;
+//     commentsLoaderBtn.classList.add('hidden');
+//   };
+
+  // if (+commentsLoadCounter.textContent > +commentsCounter.textContent) {
+  //   commentsLoaderBtn.classList.add('hidden');
+  //   commentsLoadCounter.textContent = commentsCounter.textContent;
+  // };
+
+//   if (commentsLoadCounter.textContent === commentsCounter.textContent) {
+//     commentsLoadCounter.textContent = currentCommentsViewCount;
+//     commentsLoaderBtn.classList.add('hidden');
+//   };
+// };
 
 const showMoreComments = () => {
   const hiddenComments = Array.from(document.querySelectorAll('.social__comment.hidden'));
@@ -26,12 +43,12 @@ const showMoreComments = () => {
   currentCommentsViewCount += firstFiveEls.length;
   commentsLoadCounter.textContent = currentCommentsViewCount;
 
-  if (commentsLoadCounter.textContent >= commentsCounter.textContent) {
+  if (commentsLoadCounter.textContent === commentsCounter.textContent) {
     commentsLoaderBtn.classList.add('hidden');
-  };
+  }
 
-  console.log(currentCommentsViewCount);
-  console.log(commentsLoadCounter.textContent);
+  console.log();
+  console.log();
   // работа с кнопкой
   // отображение текущшего кол-ва
   // сброс формы если юзер закрыл окно
