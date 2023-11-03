@@ -1,6 +1,6 @@
 import { drawThumbnails } from './thumbnails.js';
 import { createDescriptionPhoto } from './create-description.js';
-import { openFullPhoto } from './full-screen-image.js';
+import { openFullPhoto, closeFullPhoto } from './full-screen-image.js';
 
 const thumbnailsData = createDescriptionPhoto();
 const photosContainer = document.querySelector('.pictures');
@@ -15,23 +15,12 @@ const commentsLoadCounter = document.querySelector('.comments-load-count');
 const COMMENTS_PER_PAGE = 5;
 let currentCommentsViewCount = 5;
 
-// const isAllLoaded = () => {
-//   if (+commentsCounter.textContent === 0) {
-//     currentCommentsViewCount = 0;
-//     commentsLoadCounter.textContent = currentCommentsViewCount;
-//     commentsLoaderBtn.classList.add('hidden');
-//   };
-
-  // if (+commentsLoadCounter.textContent > +commentsCounter.textContent) {
-  //   commentsLoaderBtn.classList.add('hidden');
-  //   commentsLoadCounter.textContent = commentsCounter.textContent;
-  // };
-
-//   if (commentsLoadCounter.textContent === commentsCounter.textContent) {
-//     commentsLoadCounter.textContent = currentCommentsViewCount;
-//     commentsLoaderBtn.classList.add('hidden');
-//   };
-// };
+const isAllLoaded = () => {
+  if (+commentsCounter.textContent < currentCommentsViewCount) {
+    commentsLoadCounter.textContent = commentsCounter.textContent;
+    commentsLoaderBtn.classList.add('hidden');
+  }
+};
 
 const showMoreComments = () => {
   const hiddenComments = Array.from(document.querySelectorAll('.social__comment.hidden'));
@@ -93,6 +82,7 @@ const setFullPhotoData = (currentImg) => {
   commentsCounter.textContent = comments.length;
   fullPhotoDescription.textContent = description;
 
+  isAllLoaded();
   initComments(comments);
   openFullPhoto();
 };

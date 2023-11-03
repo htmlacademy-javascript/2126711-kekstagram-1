@@ -32,4 +32,4 @@ function fullPhotoCloseHandler() {
   closeFullPhoto();
 }
 
-export { openFullPhoto };
+export { openFullPhoto, closeFullPhoto };
